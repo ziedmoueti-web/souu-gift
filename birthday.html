@@ -509,36 +509,46 @@
         position: absolute;
         top: 1.6rem;
         left: 1.8rem;
-        background: none;
-        border: none;
-        cursor: pointer;
         display: flex;
         align-items: center;
         gap: 0.55rem;
-        color: rgba(232, 210, 190, 0.55);
+        color: var(--ivory-bright);
         font-family: "Jost", sans-serif;
-        font-weight: 300;
+        font-weight: 400;
         font-size: 0.64rem;
         letter-spacing: 0.3em;
+        text-indent: 0.05em;
         text-transform: uppercase;
-        padding: 0.4rem 0.2rem;
-        transition: color 0.4s;
+        background: rgba(26, 3, 8, 0.42);
+        border: 1px solid rgba(232, 210, 190, 0.4);
+        border-radius: 999px;
+        padding: 0.6rem 1.2rem 0.6rem 1rem;
+        backdrop-filter: blur(6px);
+        cursor: pointer;
+        transition: color 0.4s, border-color 0.4s, background 0.4s, transform 0.3s var(--ease);
         z-index: 100;
       }
       .back-arrow svg {
         transition: transform 0.45s var(--ease);
       }
       .back-arrow:hover {
-        color: var(--ivory-bright);
+        border-color: rgba(232, 210, 190, 0.75);
+        background: rgba(26, 3, 8, 0.6);
       }
       .back-arrow:hover svg {
         transform: translateX(-4px);
       }
+      .back-arrow:active {
+        transform: scale(0.97);
+      }
       .back-arrow.dark {
-        color: rgba(74, 11, 22, 0.55);
+        color: var(--wine-800);
+        background: rgba(255, 255, 255, 0.45);
+        border-color: rgba(74, 11, 22, 0.35);
       }
       .back-arrow.dark:hover {
-        color: var(--wine-800);
+        background: rgba(255, 255, 255, 0.65);
+        border-color: rgba(74, 11, 22, 0.6);
       }
 
       .neon-bday {
@@ -765,16 +775,6 @@
         gap: 1.6rem;
       }
 
-      .song-title {
-        font-family: "Playfair Display", serif;
-        font-weight: 500;
-        font-size: clamp(1.05rem, 3.2vw, 1.7rem);
-        letter-spacing: 0.06em;
-        color: var(--ivory);
-        text-align: center;
-        padding: 0 1.5rem;
-      }
-
       .video-wrap {
         position: relative;
         width: min(620px, 92vw);
@@ -877,13 +877,46 @@
         opacity: 0.5;
       }
       .lbow.tl {
-        top: 1.6rem;
-        left: 1.6rem;
+        top: 5.6rem;
+        left: 1.8rem;
       }
       .lbow.tr {
         top: 1.6rem;
         right: 1.6rem;
         transform: scaleX(-1);
+      }
+
+      .home-link {
+        position: absolute;
+        bottom: 2rem;
+        left: 0;
+        right: 0;
+        margin: auto;
+        width: fit-content;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: var(--ivory);
+        font-family: "Jost", sans-serif;
+        font-weight: 300;
+        font-size: 0.66rem;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        padding-bottom: 5px;
+      }
+      .home-link::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--gold) 30%, var(--gold) 70%, transparent);
+        transform: scaleX(0.35);
+        transition: transform 0.55s var(--ease);
+      }
+      .home-link:hover::after {
+        transform: scaleX(1);
       }
 
       /* ═══════════════════════════════════════════════
@@ -1141,9 +1174,7 @@
           </span>
           <span class="cap">Our Song</span>
           <span class="sub">from 00:54</span>
-        </button>
-
-        <button class="menu-card reveal" style="--rd: 0.69s" onclick="show('letter')">
+        </button>        <button class="menu-card reveal" style="--rd: 0.69s" onclick="show('letter')">
           <span class="icon-ring">
             <svg viewBox="0 0 24 24" fill="none" stroke="#f2e6d6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
@@ -1153,8 +1184,9 @@
           <span class="cap">Letter</span>
           <span class="sub">sealed with love</span>
         </button>
-
       </div>
+
+      <button class="home-link reveal" style="--rd: 0.9s" onclick="show('landing')">Home</button>
     </div>
 
     <!-- ══ PAGE 3 — GALLERY ══ -->
@@ -1205,9 +1237,7 @@
         </svg>
         Back
       </button>
-      <p class="eyebrow reveal" style="--rd: 0.1s">Our song</p>
-      <p class="song-title reveal" style="--rd: 0.28s">The Day I Fell In Love With You</p>
-      <div class="video-wrap reveal" style="--rd: 0.48s">
+      <div class="video-wrap reveal" style="--rd: 0.28s">
         <video
           id="ourVideo"
           src="our-song.mp4"
