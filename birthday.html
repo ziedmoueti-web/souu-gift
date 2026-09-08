@@ -1154,7 +1154,19 @@
       <p class="menu-label reveal" style="--rd: 0.25s">What do you want to see first?</p>
 
       <div class="icon-grid">
-        <button class="menu-card reveal" style="--rd: 0.45s" onclick="showGallery()">
+        <button class="menu-card reveal" style="--rd: 0.45s" onclick="show('song')">
+          <span class="icon-ring">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#f2e6d6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
+              <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z" />
+              <path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" />
+            </svg>
+          </span>
+          <span class="cap">Our Song</span>
+          <span class="sub">from 00:54</span>
+        </button>
+
+        <button class="menu-card reveal" style="--rd: 0.57s" onclick="showGallery()">
           <span class="icon-ring">
             <svg viewBox="0 0 24 24" fill="none" stroke="#f2e6d6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
@@ -1165,17 +1177,7 @@
           <span class="sub">us, in frames</span>
         </button>
 
-        <button class="menu-card reveal" style="--rd: 0.57s" onclick="show('song')">
-          <span class="icon-ring">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#f2e6d6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
-              <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z" />
-              <path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" />
-            </svg>
-          </span>
-          <span class="cap">Our Song</span>
-          <span class="sub">from 00:54</span>
-        </button>        <button class="menu-card reveal" style="--rd: 0.69s" onclick="show('letter')">
+        <button class="menu-card reveal" style="--rd: 0.69s" onclick="show('letter')">
           <span class="icon-ring">
             <svg viewBox="0 0 24 24" fill="none" stroke="#f2e6d6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
@@ -1259,6 +1261,12 @@
       </div>
       <div class="polaroid" id="pol5" style="width: clamp(110px, 19vw, 165px)">
         <img src="pic6.jpeg" alt="the chef" />
+      </div>
+      <div class="polaroid" id="pol6" style="width: clamp(110px, 19vw, 165px)">
+        <img src="pic7.jpeg" alt="pure joy" />
+      </div>
+      <div class="polaroid" id="pol7" style="width: clamp(110px, 19vw, 165px)">
+        <img src="pic8.jpeg" alt="my favorite view" />
       </div>
 
       <div class="neon-bday" id="neonBday">happy<br />birthday</div>
@@ -1404,21 +1412,25 @@
 
       /* ── GALLERY ── */
       const SLOTS = [
-        { top: 5, left: 2, rot: -6, dir: "left" }, // top-left
-        { top: 3, left: 50, rot: 4, dir: "right" }, // top-right
-        { top: 26, left: 58, rot: -9, dir: "right" }, // mid-right
-        { top: 40, left: 4, rot: 7, dir: "left" }, // mid-left
-        { top: 62, left: 32, rot: -3, dir: "left" }, // centre-bottom
-        { top: 64, left: 62, rot: 11, dir: "right" }, // bottom-right
+        { top: 4, left: 3, rot: -6, dir: "left" }, // top-left
+        { top: 2, left: 42, rot: 4, dir: "right" }, // top-center
+        { top: 6, left: 77, rot: 7, dir: "right" }, // top-right
+        { top: 29, left: 60, rot: -9, dir: "right" }, // mid-right
+        { top: 52, left: 80, rot: 9, dir: "right" }, // lower-right
+        { top: 31, left: 10, rot: 7, dir: "left" }, // mid-left
+        { top: 56, left: 26, rot: -3, dir: "left" }, // bottom-left
+        { top: 62, left: 52, rot: -14, dir: "right" }, // bottom-center-right
       ];
-      // tighter spread on small screens so nothing overlaps badly
+      // tighter two-column spread on small screens so nothing overlaps badly
       const SLOTS_MOBILE = [
-        { top: 3, left: 6, rot: -5, dir: "left" },
-        { top: 12, left: 52, rot: 4, dir: "right" },
-        { top: 27, left: 55, rot: -8, dir: "right" },
-        { top: 33, left: 8, rot: 6, dir: "left" },
-        { top: 52, left: 28, rot: -3, dir: "left" },
-        { top: 58, left: 58, rot: 9, dir: "right" },
+        { top: 2, left: 2, rot: -5, dir: "left" },
+        { top: 9, left: 50, rot: 5, dir: "right" },
+        { top: 23, left: 55, rot: -7, dir: "right" },
+        { top: 27, left: 4, rot: 6, dir: "left" },
+        { top: 43, left: 6, rot: -4, dir: "left" },
+        { top: 47, left: 53, rot: 8, dir: "right" },
+        { top: 61, left: 48, rot: -10, dir: "right" },
+        { top: 64, left: 20, rot: 4, dir: "left" },
       ];
 
       const STAGGER = 1.0; // one photo per second — slow & cozy
