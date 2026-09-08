@@ -1,0 +1,4 @@
+.freebuff/
+hs.log
+*.log
+*.log.err

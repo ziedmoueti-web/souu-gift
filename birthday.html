@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hi, Love! 💕</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Dancing+Script:wght@400;600;700&family=Raleway:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --burgundy: #5a0a1a;
+        --dark-burgundy: #3d0610;
+        --pink: #c9788a;
+        --dusty-pink: #d4919f;
+        --white: #f5f0eb;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      body {
+        font-family: "Raleway", sans-serif;
+        background: var(--burgundy);
+        color: var(--white);
+      }
+
+      /* ═══ PAGES ═══ */
+      .page {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: var(--burgundy);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.7s ease;
+        overflow: hidden;
+      }
+      .page.active {
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      /* ═══ PAGE 1 — LANDING ═══ */
+      #page-landing {
+        gap: 1.4rem;
+        text-align: center;
+      }
+
+      .hi-love {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(3.5rem, 13vw, 9rem);
+        font-weight: 900;
+        letter-spacing: 0.04em;
+        line-height: 0.9;
+        animation: fadeUp 1s ease both;
+      }
+      .subtitle {
+        font-size: clamp(0.65rem, 1.8vw, 0.9rem);
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: rgba(245, 240, 235, 0.65);
+        animation: fadeUp 1s ease 0.3s both;
+      }
+
+      .heart-wrap {
+        animation: fadeIn 1.2s ease 0.5s both,
+          floatY 4s ease-in-out 1.5s infinite;
+        width: clamp(90px, 16vw, 140px);
+      }
+
+      .btn-group {
+        display: flex;
+        gap: 3rem;
+        margin-top: 0.5rem;
+        animation: fadeUp 1s ease 0.8s both;
+      }
+      .btn-ul {
+        background: none;
+        border: none;
+        color: var(--white);
+        font-family: "Raleway", sans-serif;
+        font-size: 0.85rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        cursor: pointer;
+        padding-bottom: 3px;
+        border-bottom: 1.5px solid var(--white);
+        transition: opacity 0.3s;
+      }
+      .btn-ul:hover {
+        opacity: 0.55;
+      }
+      .btn-ul.dim {
+        opacity: 0.45;
+        border-color: rgba(245, 240, 235, 0.4);
+      }
+
+      /* corner bows */
+      .bow {
+        position: absolute;
+        opacity: 0.22;
+        pointer-events: none;
+      }
+      .bow.tl {
+        top: 1.2rem;
+        left: 1.2rem;
+      }
+      .bow.tr {
+        top: 1.2rem;
+        right: 1.2rem;
+        transform: scaleX(-1);
+      }
+      .bow.bl {
+        bottom: 1.2rem;
+        left: 1.2rem;
+        transform: scaleY(-1);
+      }
+      .bow.br {
+        bottom: 1.2rem;
+        right: 1.2rem;
+        transform: scale(-1);
+      }
+
+      /* ═══ PAGE 2 — ICON MENU ═══ */
+      #page-menu {
+        gap: 2.5rem;
+      }
+
+      .menu-label {
+        font-family: "Dancing Script", cursive;
+        font-size: clamp(1.5rem, 4.5vw, 2.6rem);
+        opacity: 0.85;
+        animation: fadeUp 0.7s ease both;
+      }
+
+      .icon-grid {
+        display: flex;
+        gap: clamp(1.6rem, 4.5vw, 3.2rem);
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        padding: 0 1.5rem;
+        animation: fadeUp 0.7s ease 0.2s both;
+      }
+
+      .icon-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.55rem;
+        background: none;
+        border: 1px solid rgba(245, 240, 235, 0.18);
+        color: var(--white);
+        cursor: pointer;
+        padding: 1.1rem 1.3rem;
+        border-radius: 14px;
+        transition: background 0.3s, transform 0.25s, border-color 0.3s;
+        font-family: "Raleway", sans-serif;
+        font-size: 0.6rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        min-width: 80px;
+      }
+      .icon-btn:hover {
+        background: rgba(245, 240, 235, 0.09);
+        border-color: rgba(245, 240, 235, 0.4);
+        transform: translateY(-5px);
+      }
+      .icon-btn svg {
+        width: 38px;
+        height: 38px;
+        opacity: 0.88;
+      }
+
+      /* ═══ PAGE 3 — GALLERY ═══ */
+      #page-gallery {
+        background: var(--burgundy);
+      }
+
+      .back-arrow {
+        position: absolute;
+        top: 1.4rem;
+        left: 1.6rem;
+        background: none;
+        border: none;
+        color: rgba(245, 240, 235, 0.55);
+        font-family: "Raleway", sans-serif;
+        font-size: 0.72rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        transition: opacity 0.3s;
+        z-index: 100;
+      }
+      .back-arrow:hover {
+        opacity: 0.4;
+      }
+      .back-arrow.dark {
+        color: #5a0a1a;
+        opacity: 0.5;
+      }
+      .back-arrow.dark:hover {
+        opacity: 0.3;
+      }
+
+      .neon-bday {
+        font-family: "Dancing Script", cursive;
+        font-size: clamp(2rem, 6.5vw, 4.2rem);
+        font-weight: 700;
+        color: var(--pink);
+        text-shadow: 0 0 6px var(--pink), 0 0 20px var(--pink), 0 0 50px #e05070,
+          0 0 90px #c03050;
+        animation: neonPulse 2.5s ease-in-out infinite;
+        position: absolute;
+        bottom: 2rem;
+        right: 6%;
+        z-index: 10;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 1.4s ease;
+      }
+      .neon-bday.show {
+        opacity: 1;
+      }
+
+      .rose-bg {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0.18;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .polaroid {
+        position: absolute;
+        background: #fff;
+        padding: 0.5rem 0.5rem 1.6rem;
+        box-shadow: 0 6px 30px rgba(0, 0, 0, 0.55);
+        opacity: 0;
+        z-index: 5;
+        transition: box-shadow 0.3s;
+      }
+      .polaroid:hover {
+        box-shadow: 0 14px 44px rgba(0, 0, 0, 0.75);
+        z-index: 30;
+      }
+
+      .polaroid-ph {
+        width: 100%;
+        aspect-ratio: 1;
+        background: linear-gradient(135deg, #c9b4b8, #a08090);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: rgba(255, 255, 255, 0.45);
+        font-size: 0.55rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .polaroid img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 1;
+        object-fit: cover;
+      }
+
+      /* Slow, gentle glide animations */
+      @keyframes glideLeft {
+        0% {
+          opacity: 0;
+          transform: var(--r) translateX(-115vw);
+        }
+        100% {
+          opacity: 1;
+          transform: var(--r) translateX(0);
+        }
+      }
+      @keyframes glideRight {
+        0% {
+          opacity: 0;
+          transform: var(--r) translateX(115vw);
+        }
+        100% {
+          opacity: 1;
+          transform: var(--r) translateX(0);
+        }
+      }
+      .glide-left {
+        animation: glideLeft 1.8s cubic-bezier(0.16, 0.84, 0.44, 1) forwards;
+      }
+      .glide-right {
+        animation: glideRight 1.8s cubic-bezier(0.16, 0.84, 0.44, 1) forwards;
+      }
+
+      /* ═══ PAGE 4 — SONG ═══ */
+      #page-song {
+        gap: 1.8rem;
+      }
+
+      .song-label {
+        font-size: 0.72rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        opacity: 0.5;
+        animation: fadeUp 0.7s ease both;
+      }
+      .song-title {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(0.95rem, 3.2vw, 1.7rem);
+        letter-spacing: 0.07em;
+        text-align: center;
+        animation: fadeUp 0.7s ease 0.15s both;
+        padding: 0 1.5rem;
+      }
+      .video-wrap {
+        width: min(560px, 92vw);
+        aspect-ratio: 16/9;
+        background: #111;
+        border: 1.5px solid rgba(245, 240, 235, 0.15);
+        overflow: hidden;
+        animation: fadeIn 0.9s ease 0.3s both;
+      }
+      .video-wrap video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      /* ═══ PAGE 5 — LETTER ═══ */
+      #page-letter {
+        background: var(--dusty-pink);
+      }
+
+      .letter-card {
+        background: var(--burgundy);
+        color: var(--white);
+        max-width: 480px;
+        width: 88%;
+        padding: 3rem 2.8rem;
+        box-shadow: 0 10px 50px rgba(61, 6, 16, 0.4);
+        animation: fadeUp 0.9s ease both;
+        clip-path: polygon(
+          0% 3%,
+          2% 0%,
+          4% 3%,
+          6% 0%,
+          8% 3%,
+          10% 0%,
+          12% 3%,
+          14% 0%,
+          16% 3%,
+          18% 0%,
+          20% 3%,
+          22% 0%,
+          24% 3%,
+          26% 0%,
+          28% 3%,
+          30% 0%,
+          32% 3%,
+          34% 0%,
+          36% 3%,
+          38% 0%,
+          40% 3%,
+          42% 0%,
+          44% 3%,
+          46% 0%,
+          48% 3%,
+          50% 0%,
+          52% 3%,
+          54% 0%,
+          56% 3%,
+          58% 0%,
+          60% 3%,
+          62% 0%,
+          64% 3%,
+          66% 0%,
+          68% 3%,
+          70% 0%,
+          72% 3%,
+          74% 0%,
+          76% 3%,
+          78% 0%,
+          80% 3%,
+          82% 0%,
+          84% 3%,
+          86% 0%,
+          88% 3%,
+          90% 0%,
+          92% 3%,
+          94% 0%,
+          96% 3%,
+          98% 0%,
+          100% 3%,
+          100% 97%,
+          98% 100%,
+          96% 97%,
+          94% 100%,
+          92% 97%,
+          90% 100%,
+          88% 97%,
+          86% 100%,
+          84% 97%,
+          82% 100%,
+          80% 97%,
+          78% 100%,
+          76% 97%,
+          74% 100%,
+          72% 97%,
+          70% 100%,
+          68% 97%,
+          66% 100%,
+          64% 97%,
+          62% 100%,
+          60% 97%,
+          58% 100%,
+          56% 97%,
+          54% 100%,
+          52% 97%,
+          50% 100%,
+          48% 97%,
+          46% 100%,
+          44% 97%,
+          42% 100%,
+          40% 97%,
+          38% 100%,
+          36% 97%,
+          34% 100%,
+          32% 97%,
+          30% 100%,
+          28% 97%,
+          26% 100%,
+          24% 97%,
+          22% 100%,
+          20% 97%,
+          18% 100%,
+          16% 97%,
+          14% 100%,
+          12% 97%,
+          10% 100%,
+          8% 97%,
+          6% 100%,
+          4% 97%,
+          2% 100%,
+          0% 97%
+        );
+      }
+      .letter-card p {
+        font-family: "Raleway", sans-serif;
+        font-weight: 600;
+        font-size: 0.8rem;
+        letter-spacing: 0.07em;
+        line-height: 2;
+        text-transform: uppercase;
+      }
+      .letter-card .sal {
+        margin-bottom: 1rem;
+        opacity: 0.8;
+      }
+      .letter-card .sign {
+        margin-top: 1.4rem;
+        font-family: "Dancing Script", cursive;
+        font-size: 1.3rem;
+        text-transform: none;
+      }
+      .letter-card .name {
+        font-family: "Dancing Script", cursive;
+        font-size: 1.75rem;
+        font-weight: 700;
+        text-transform: none;
+      }
+
+      .lbow {
+        position: absolute;
+        opacity: 0.65;
+      }
+      .lbow.tl {
+        top: 1.6rem;
+        left: 1.6rem;
+      }
+      .lbow.tr {
+        top: 1.6rem;
+        right: 1.6rem;
+        transform: scaleX(-1);
+      }
+
+      /* ═══ PAGE 6 — PRESENT ═══ */
+      #page-present {
+        gap: 1.4rem;
+        text-align: center;
+      }
+
+      .pres-title {
+        font-family: "Dancing Script", cursive;
+        font-size: clamp(1.5rem, 4.5vw, 2.6rem);
+        font-weight: 700;
+        animation: fadeUp 0.8s ease both;
+      }
+      .pres-sub {
+        font-family: "Dancing Script", cursive;
+        font-size: clamp(1.2rem, 3.5vw, 2rem);
+        opacity: 0.75;
+        animation: fadeUp 0.8s ease 0.3s both;
+      }
+      .gift-svg {
+        animation: floatY 3s ease-in-out 0.5s infinite,
+          fadeIn 0.8s ease 0.2s both;
+        width: clamp(110px, 20vw, 185px);
+      }
+
+      .home-link {
+        position: absolute;
+        bottom: 1.8rem;
+        right: 2rem;
+        background: none;
+        border: none;
+        color: var(--white);
+        font-family: "Raleway", sans-serif;
+        font-size: 0.72rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        cursor: pointer;
+        border-bottom: 1.5px solid var(--white);
+        padding-bottom: 3px;
+        transition: opacity 0.3s;
+      }
+      .home-link:hover {
+        opacity: 0.5;
+      }
+
+      /* ═══ ANIMATIONS ═══ */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(26px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes floatY {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-11px);
+        }
+      }
+      @keyframes neonPulse {
+        0%,
+        100% {
+          text-shadow: 0 0 6px var(--pink), 0 0 20px var(--pink),
+            0 0 50px #e05070, 0 0 90px #c03050;
+        }
+        50% {
+          text-shadow: 0 0 10px var(--pink), 0 0 35px var(--pink),
+            0 0 75px #e05070, 0 0 140px #c03050;
+        }
+      }
+
+      /* nav dots */
+      .nav-dots {
+        position: fixed;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        z-index: 200;
+      }
+      .nd {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: rgba(245, 240, 235, 0.28);
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+      .nd.on {
+        background: var(--white);
+        transform: scale(1.5);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV DOTS -->
+    <nav class="nav-dots">
+      <button class="nd on" onclick="show('landing')"></button>
+      <button class="nd" onclick="show('menu')"></button>
+      <button class="nd" onclick="showGallery()"></button>
+      <button class="nd" onclick="show('song')"></button>
+      <button class="nd" onclick="show('letter')"></button>
+      <button class="nd" onclick="show('present')"></button>
+    </nav>
+
+    <!-- ══ PAGE 1 — LANDING ══ -->
+    <div class="page active" id="page-landing">
+      <svg
+        class="bow tl"
+        width="65"
+        height="65"
+        viewBox="0 0 80 80"
+        fill="none"
+      >
+        <path
+          d="M40 40 C25 20,5 25,10 40 C15 55,35 50,40 40Z"
+          stroke="white"
+          stroke-width="1.5"
+          fill="none"
+        />
+        <path
+          d="M40 40 C20 25,25 5,40 10 C55 15,50 35,40 40Z"
+          stroke="white"
+          stroke-width="1.5"
+          fill="none"
+        />
+        <circle
+          cx="40"
+          cy="40"
+          r="4"
+          stroke="white"
+          stroke-width="1.5"
+          fill="none"
+        />
+        <path
+          d="M40 40 L40 65M40 40 L15 40"
+          stroke="white"
+          stroke-width="1"
+          stroke-dasharray="3 3"
+        />
+      </svg>
+      <svg
+        class="bow tr"
+        width="65"
+        height="65"
+        viewBox="0 0 80 80"
+        fill="none"
+      >
+        <path
+          d="M40 40 C25 20,5 25,10 40 C15 55,35 50,40 40Z"
+          stroke="white"
+          stroke-width="1.5"
+          fill="none"
+        />
+        <path
+          d="M40 40 C20 25,25 5,40 10 C55 15,50 35,40 40Z"
+          stroke="white"
+          stroke-width="1.5"
+          fill="none"
+        />
+        <circle
+          cx="40"
+          cy="40"
+          r="4"
+          stroke="white"
+          stroke-width="1.5"
+          fill="none"
+        />
+        <path
+          d="M40 40 L40 65M40 40 L15 40"
+          stroke="white"
+          stroke-width="1"
+          stroke-dasharray="3 3"
+        />
+      </svg>
+      <svg
+        class="bow bl"
+        width="65"
+        height="65"
+        viewBox="0 0 80 80"
+        fill="none"
+      >
+        <path
+          d="M40 40 C25 20,5 25,10 40 C15 55,35 50,40 40Z"
+          stroke="white"
+          stroke-width="1.5"
+          fill="none"
+        />
+        <path
+          d="M40 40 C20 25,25 5,40 10 C55 15,50 35,40 40Z"
+          stroke="white"
+          stroke-width="1.5"
+          fill="none"
+        />
+        <circle
+          cx="40"
+          cy="40"
+          r="4"
+          stroke="white"
+          stroke-width="1.5"
+          fill="none"
+        />
+        <path
+          d="M40 40 L40 65M40 40 L15 40"
+          stroke="white"
+          stroke-width="1"
+          stroke-dasharray="3 3"
+        />
+      </svg>
+      <svg
+        class="bow br"
+        width="65"
+        height="65"
+        viewBox="0 0 80 80"
+        fill="none"
+      >
+        <path
+          d="M40 40 C25 20,5 25,10 40 C15 55,35 50,40 40Z"
+          stroke="white"
+          stroke-width="1.5"
+          fill="none"
+        />
+        <path
+          d="M40 40 C20 25,25 5,40 10 C55 15,50 35,40 40Z"
+          stroke="white"
+          stroke-width="1.5"
+          fill="none"
+        />
+        <circle
+          cx="40"
+          cy="40"
+          r="4"
+          stroke="white"
+          stroke-width="1.5"
+          fill="none"
+        />
+        <path
+          d="M40 40 L40 65M40 40 L15 40"
+          stroke="white"
+          stroke-width="1"
+          stroke-dasharray="3 3"
+        />
+      </svg>
+
+      <div class="hi-love">HI, LOVE!</div>
+      <p class="subtitle">Do you want to see a little surprise for you?</p>
+
+      <!-- Anatomical heart (white outline, cozy hand-drawn style) -->
+      <svg
+        class="heart-wrap"
+        viewBox="0 0 200 220"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M100 185 C60 155,15 130,15 85 C15 50,40 28,65 28 C78 28,90 35,100 48 C110 35,122 28,135 28 C160 28,185 50,185 85 C185 130,140 155,100 185Z"
+          stroke="white"
+          stroke-width="2.2"
+          fill="none"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M88 48 C82 35,75 22,72 14 C69 8,76 5,80 10 C84 15,86 22,90 28"
+          stroke="white"
+          stroke-width="1.8"
+          fill="none"
+        />
+        <path
+          d="M72 14 C68 8,62 10,62 17 C62 24,68 28,75 30"
+          stroke="white"
+          stroke-width="1.5"
+          fill="none"
+        />
+        <path
+          d="M95 42 C95 28,102 18,112 16 C120 14,128 18,128 26 C128 34,118 38,108 40"
+          stroke="white"
+          stroke-width="1.5"
+          fill="none"
+        />
+        <path
+          d="M112 16 C118 10,128 8,134 14 C140 20,136 30,128 30"
+          stroke="white"
+          stroke-width="1.3"
+          fill="none"
+        />
+        <path
+          d="M80 80 C78 100,82 130,100 158"
+          stroke="white"
+          stroke-width="1.2"
+          fill="none"
+        />
+        <path
+          d="M120 80 C124 105,118 132,100 158"
+          stroke="white"
+          stroke-width="1.2"
+          fill="none"
+        />
+        <path
+          d="M88 60 C72 65,55 78,45 95 C40 105,42 118,50 125"
+          stroke="white"
+          stroke-width="1.3"
+          fill="none"
+        />
+        <path
+          d="M50 125 C55 132,62 136,68 130"
+          stroke="white"
+          stroke-width="1"
+          fill="none"
+        />
+        <path
+          d="M112 60 C128 65,145 78,152 95 C157 108,152 122,142 128"
+          stroke="white"
+          stroke-width="1.3"
+          fill="none"
+        />
+        <path
+          d="M88 60 C96 55,108 55,115 60"
+          stroke="white"
+          stroke-width="1.2"
+          fill="none"
+        />
+        <path
+          d="M65 95 C60 108,58 120,62 132"
+          stroke="white"
+          stroke-width="0.9"
+          fill="none"
+          opacity="0.7"
+        />
+        <path
+          d="M75 110 C70 122,72 138,80 148"
+          stroke="white"
+          stroke-width="0.9"
+          fill="none"
+          opacity="0.7"
+        />
+        <path
+          d="M135 95 C140 108,140 122,136 134"
+          stroke="white"
+          stroke-width="0.9"
+          fill="none"
+          opacity="0.7"
+        />
+        <text x="28" y="75" font-size="10" fill="white" opacity="0.4">✦</text>
+        <text x="160" y="72" font-size="8" fill="white" opacity="0.35">✦</text>
+        <text x="95" y="202" font-size="7" fill="white" opacity="0.3">✦</text>
+      </svg>
+
+      <div class="btn-group">
+        <button class="btn-ul" onclick="show('menu')">YES!!</button>
+        <button class="btn-ul dim" onclick="show('present')">
+          No, thanks.
+        </button>
+      </div>
+    </div>
+
+    <!-- ══ PAGE 2 — ICON MENU ══ -->
+    <div class="page" id="page-menu">
+      <p class="menu-label">What do you want to see first? 🎀</p>
+
+      <div class="icon-grid">
+        <!-- Camera → Gallery -->
+        <button class="icon-btn" onclick="showGallery()">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"
+            />
+            <circle cx="12" cy="13" r="4" />
+          </svg>
+          Photos
+        </button>
+
+        <!-- Headphones → Song -->
+        <button class="icon-btn" onclick="show('song')">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
+            <path
+              d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z"
+            />
+            <path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" />
+          </svg>
+          Our Song
+        </button>
+
+        <!-- Envelope → Letter -->
+        <button class="icon-btn" onclick="show('letter')">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+            />
+            <polyline points="22,6 12,13 2,6" />
+          </svg>
+          Letter
+        </button>
+
+        <!-- Gift → Present -->
+        <button class="icon-btn" onclick="show('present')">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="white"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <polyline points="20 12 20 22 4 22 4 12" />
+            <rect x="2" y="7" width="20" height="5" />
+            <line x1="12" y1="22" x2="12" y2="7" />
+            <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" />
+            <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" />
+          </svg>
+          Surprise
+        </button>
+      </div>
+    </div>
+
+    <!-- ══ PAGE 3 — GALLERY ══ -->
+    <div class="page" id="page-gallery">
+      <button class="back-arrow" onclick="show('menu')">
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <polyline points="15 18 9 12 15 6" />
+        </svg>
+        Back
+      </button>
+
+      <!-- Rose background -->
+      <svg
+        class="rose-bg"
+        width="180"
+        height="270"
+        viewBox="0 0 120 180"
+        fill="none"
+      >
+        <path
+          d="M60 30 C45 20,30 35,40 50 C30 45,20 60,35 70 C20 68,15 85,30 90 C18 92,18 110,35 108 C25 115,30 132,50 128 C45 138,55 150,65 145 C70 155,85 150,82 138 C95 140,102 125,92 115 C108 112,108 95,94 93 C108 87,105 70,90 70 C102 60,95 45,82 50 C90 35,75 20,60 30Z"
+          stroke="white"
+          stroke-width="1.5"
+          fill="none"
+        />
+        <path
+          d="M60 30 C60 50,55 70,58 90 C60 110,62 130,60 160"
+          stroke="white"
+          stroke-width="1.2"
+          fill="none"
+        />
+        <path
+          d="M60 100 Q45 110,35 108M60 110 Q75 120,82 138M58 80 Q42 75,35 70M62 75 Q78 70,82 50"
+          stroke="white"
+          stroke-width="1"
+          fill="none"
+        />
+        <line
+          x1="60"
+          y1="160"
+          x2="60"
+          y2="175"
+          stroke="white"
+          stroke-width="1.5"
+        />
+        <path
+          d="M42 165 Q50 155,60 160 Q70 155,78 165"
+          stroke="white"
+          stroke-width="1.2"
+          fill="none"
+        />
+      </svg>
+
+      <!-- 6 polaroids -->
+      <div class="polaroid" id="pol0" style="width: clamp(110px, 19vw, 165px)">
+        <div class="polaroid-ph">Photo 1</div>
+      </div>
+      <div class="polaroid" id="pol1" style="width: clamp(110px, 19vw, 165px)">
+        <div class="polaroid-ph">Photo 2</div>
+      </div>
+      <div class="polaroid" id="pol2" style="width: clamp(110px, 19vw, 165px)">
+        <div class="polaroid-ph">Photo 3</div>
+      </div>
+      <div class="polaroid" id="pol3" style="width: clamp(110px, 19vw, 165px)">
+        <div class="polaroid-ph">Photo 4</div>
+      </div>
+      <div class="polaroid" id="pol4" style="width: clamp(110px, 19vw, 165px)">
+        <div class="polaroid-ph">Photo 5</div>
+      </div>
+      <div class="polaroid" id="pol5" style="width: clamp(110px, 19vw, 165px)">
+        <div class="polaroid-ph">Photo 6</div>
+      </div>
+
+      <div class="neon-bday" id="neonBday">happy<br />birthday</div>
+    </div>
+
+    <!-- ══ PAGE 4 — SONG ══ -->
+    <div class="page" id="page-song">
+      <button class="back-arrow" onclick="show('menu')">
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <polyline points="15 18 9 12 15 6" />
+        </svg>
+        Back
+      </button>
+      <p class="song-label">Our song 🎵</p>
+      <p class="song-title">The Day I Fell In Love With You 🎬</p>
+      <div class="video-wrap">
+        <video
+          id="ourVideo"
+          src="our-song.mp4"
+          preload="auto"
+          playsinline
+        ></video>
+      </div>
+    </div>
+
+    <!-- ══ PAGE 5 — LETTER ══ -->
+    <div class="page" id="page-letter" style="background: var(--dusty-pink)">
+      <button class="back-arrow dark" onclick="show('menu')">
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#5a0a1a"
+          stroke-width="2"
+        >
+          <polyline points="15 18 9 12 15 6" />
+        </svg>
+        Back
+      </button>
+      <svg
+        class="lbow tl"
+        width="75"
+        height="75"
+        viewBox="0 0 80 80"
+        fill="none"
+      >
+        <path
+          d="M40 40 C25 20,5 25,10 40 C15 55,35 50,40 40Z"
+          stroke="#5a0a1a"
+          stroke-width="2"
+          fill="none"
+        />
+        <path
+          d="M40 40 C20 25,25 5,40 10 C55 15,50 35,40 40Z"
+          stroke="#5a0a1a"
+          stroke-width="2"
+          fill="none"
+        />
+        <circle
+          cx="40"
+          cy="40"
+          r="5"
+          stroke="#5a0a1a"
+          stroke-width="2"
+          fill="none"
+        />
+        <path
+          d="M40 40 L40 72M40 40 L8 40"
+          stroke="#5a0a1a"
+          stroke-width="1.3"
+          stroke-dasharray="4 3"
+        />
+      </svg>
+      <svg
+        class="lbow tr"
+        width="75"
+        height="75"
+        viewBox="0 0 80 80"
+        fill="none"
+      >
+        <path
+          d="M40 40 C25 20,5 25,10 40 C15 55,35 50,40 40Z"
+          stroke="#5a0a1a"
+          stroke-width="2"
+          fill="none"
+        />
+        <path
+          d="M40 40 C20 25,25 5,40 10 C55 15,50 35,40 40Z"
+          stroke="#5a0a1a"
+          stroke-width="2"
+          fill="none"
+        />
+        <circle
+          cx="40"
+          cy="40"
+          r="5"
+          stroke="#5a0a1a"
+          stroke-width="2"
+          fill="none"
+        />
+        <path
+          d="M40 40 L40 72M40 40 L8 40"
+          stroke="#5a0a1a"
+          stroke-width="1.3"
+          stroke-dasharray="4 3"
+        />
+      </svg>
+
+      <div class="letter-card">
+        <p class="sal">My love,</p>
+        <p>
+          Happy birthday! You make every day brighter, every laugh louder, and
+          my heart fuller. Here's to you — my joy, my home, my everything.
+        </p>
+        <p class="sign">Forever yours,</p>
+        <p class="name">Y/N</p>
+      </div>
+    </div>
+
+    <!-- ══ PAGE 6 — PRESENT ══ -->
+    <div class="page" id="page-present">
+      <svg
+        class="bow tl"
+        width="65"
+        height="65"
+        viewBox="0 0 80 80"
+        fill="none"
+      >
+        <path
+          d="M40 40 C25 20,5 25,10 40 C15 55,35 50,40 40Z"
+          stroke="white"
+          stroke-width="1.5"
+          fill="none"
+        />
+        <path
+          d="M40 40 C20 25,25 5,40 10 C55 15,50 35,40 40Z"
+          stroke="white"
+          stroke-width="1.5"
+          fill="none"
+        />
+        <circle
+          cx="40"
+          cy="40"
+          r="4"
+          stroke="white"
+          stroke-width="1.5"
+          fill="none"
+        />
+        <path
+          d="M40 40 L40 65M40 40 L15 40"
+          stroke="white"
+          stroke-width="1"
+          stroke-dasharray="3 3"
+        />
+      </svg>
+      <p class="pres-title">It's time to open your present!</p>
+      <svg class="gift-svg" viewBox="0 0 200 200" fill="none">
+        <rect
+          x="30"
+          y="95"
+          width="140"
+          height="90"
+          rx="3"
+          stroke="white"
+          stroke-width="2.5"
+        />
+        <rect
+          x="22"
+          y="72"
+          width="156"
+          height="28"
+          rx="3"
+          stroke="white"
+          stroke-width="2.5"
+        />
+        <line
+          x1="100"
+          y1="72"
+          x2="100"
+          y2="185"
+          stroke="white"
+          stroke-width="2"
+        />
+        <line
+          x1="22"
+          y1="86"
+          x2="178"
+          y2="86"
+          stroke="white"
+          stroke-width="2"
+        />
+        <path
+          d="M100 72 C85 55,55 55,60 72 C65 88,95 75,100 72Z"
+          stroke="white"
+          stroke-width="2"
+        />
+        <path
+          d="M100 72 C115 55,145 55,140 72 C135 88,105 75,100 72Z"
+          stroke="white"
+          stroke-width="2"
+        />
+        <path
+          d="M100 72 Q90 80,75 92M100 72 Q110 80,125 92"
+          stroke="white"
+          stroke-width="1.5"
+        />
+        <circle cx="55" cy="130" r="3" stroke="white" stroke-width="1.5" />
+        <circle cx="145" cy="130" r="3" stroke="white" stroke-width="1.5" />
+        <circle cx="55" cy="155" r="3" stroke="white" stroke-width="1.5" />
+        <circle cx="145" cy="155" r="3" stroke="white" stroke-width="1.5" />
+        <text x="12" y="62" font-size="13" fill="white" opacity="0.4">✦</text>
+        <text x="168" y="60" font-size="9" fill="white" opacity="0.4">✦</text>
+      </svg>
+      <p class="pres-sub">I hope you like it! 🎀</p>
+      <button class="home-link" onclick="show('landing')">HOME</button>
+    </div>
+
+    <script>
+      const PAGE_ORDER = [
+        "landing",
+        "menu",
+        "gallery",
+        "song",
+        "letter",
+        "present",
+      ];
+      let galleryDone = false;
+
+      function show(name) {
+        document
+          .querySelectorAll(".page")
+          .forEach((p) => p.classList.remove("active"));
+        document.getElementById("page-" + name).classList.add("active");
+        const idx = PAGE_ORDER.indexOf(name);
+        document
+          .querySelectorAll(".nd")
+          .forEach((d, i) => d.classList.toggle("on", i === idx));
+
+        // the song keeps playing across pages like background music;
+        // entering the song page only (re)starts it if it already finished
+        if (name === "song") {
+          resumeSongVideo();
+        }
+      }
+
+      const VIDEO_START = 54; // the song always begins at 00:54
+
+      function resumeSongVideo() {
+        const v = document.getElementById("ourVideo");
+        if (!v) return;
+        v.muted = false; // opened via a click, so audio is allowed
+        const begin = () => {
+          const finished =
+            v.ended ||
+            (v.duration > 0 && v.duration - v.currentTime < 0.5);
+          const neverStarted = v.currentTime < VIDEO_START - 1;
+          if (finished || neverStarted) {
+            v.currentTime = VIDEO_START;
+          }
+          const p = v.play();
+          if (p && p.catch) {
+            p.catch(() => {
+              // if the browser blocks autoplay with sound, retry muted
+              v.muted = true;
+              v.play().catch(() => {});
+            });
+          }
+        };
+        if (v.readyState >= 1) {
+          begin();
+        } else {
+          v.addEventListener("loadedmetadata", begin, { once: true });
+        }
+      }
+
+      /* ── SCATTERED POSITIONS (% of viewport) ── */
+      const SLOTS = [
+        { top: 5, left: 2, rot: -6, dir: "left" }, // top-left
+        { top: 3, left: 50, rot: 4, dir: "right" }, // top-right
+        { top: 26, left: 58, rot: -9, dir: "right" }, // mid-right
+        { top: 40, left: 4, rot: 7, dir: "left" }, // mid-left
+        { top: 62, left: 32, rot: -3, dir: "left" }, // centre-bottom
+        { top: 64, left: 62, rot: 11, dir: "right" }, // bottom-right
+      ];
+
+      const STAGGER = 1.0; // 1 second between each photo — slow & cozy
+
+      function showGallery() {
+        show("gallery");
+
+        if (galleryDone) return;
+        galleryDone = true;
+
+        SLOTS.forEach((slot, i) => {
+          const el = document.getElementById("pol" + i);
+          el.style.top = slot.top + "%";
+          el.style.left = slot.left + "%";
+          el.style.setProperty("--r", `rotate(${slot.rot}deg)`);
+
+          setTimeout(() => {
+            el.classList.add("glide-" + slot.dir);
+          }, i * STAGGER * 1000);
+        });
+
+        // Neon text fades in after all photos land
+        setTimeout(() => {
+          document.getElementById("neonBday").classList.add("show");
+        }, SLOTS.length * STAGGER * 1000 + 600);
+      }
+    </script>
+  </body>
+</html>
