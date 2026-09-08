@@ -695,10 +695,10 @@
         }
       }
       .glide-left {
-        animation: glideLeft 2s var(--ease-glide) forwards;
+        animation: glideLeft 2s var(--ease-glide) var(--gd, 0s) forwards;
       }
       .glide-right {
-        animation: glideRight 2s var(--ease-glide) forwards;
+        animation: glideRight 2s var(--ease-glide) var(--gd, 0s) forwards;
       }
 
       /* lightbox */
@@ -1421,7 +1421,7 @@
         { top: 58, left: 58, rot: 9, dir: "right" },
       ];
 
-      const STAGGER = 1.0; // 1 second between each photo — slow & cozy
+      const STAGGER = 1.0; // one photo per second — slow & cozy
 
       function showGallery() {
         show("gallery");
@@ -1435,6 +1435,7 @@
         // shuffle which photo lands in which slot, with a little position
         // jitter so the scatter feels different every visit
         const order = [...slots.keys()].sort(() => Math.random() - 0.5);
+        let maxDelay = 0;
 
         slots.forEach((slot, i) => {
           const el = document.getElementById("pol" + order[i]);
@@ -1444,19 +1445,23 @@
           const rot = slot.rot + +jitter(3);
           el.style.setProperty("--r", `rotate(${rot}deg)`);
 
-          setTimeout(() => {
-            el.classList.add("glide-" + slot.dir);
-            const done = () => el.classList.add("glide-done");
-            el.addEventListener("animationend", done, { once: true });
-            // fallback for throttled/occluded tabs where animationend may not fire
-            setTimeout(done, 2200);
-          }, i * STAGGER * 1000);
+          // one-by-one entrance: the delay lives inside the animation itself,
+          // plus a little randomness so the rhythm feels hand-thrown
+          const delay = i * STAGGER + Math.random() * 0.35;
+          maxDelay = Math.max(maxDelay, delay);
+          el.style.setProperty("--gd", delay.toFixed(2) + "s");
+          el.classList.add("glide-" + slot.dir);
+
+          const done = () => el.classList.add("glide-done");
+          el.addEventListener("animationend", done, { once: true });
+          // fallback for throttled/occluded tabs where animationend may not fire
+          setTimeout(done, (delay + 2.3) * 1000);
         });
 
         // Shimmer headline fades in after all photos land
         setTimeout(() => {
           document.getElementById("neonBday").classList.add("show");
-        }, slots.length * STAGGER * 1000 + 700);
+        }, (maxDelay + 2) * 1000 + 600);
       }
 
       /* ── LIGHTBOX ── */
