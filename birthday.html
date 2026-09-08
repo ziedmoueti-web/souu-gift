@@ -671,6 +671,7 @@
         width: 100%;
         aspect-ratio: 1;
         object-fit: cover;
+        object-position: 50% 25%; /* bias crops toward faces on portrait photos */
       }
 
       @keyframes glideLeft {
@@ -1242,22 +1243,22 @@
 
       <!-- 6 polaroids -->
       <div class="polaroid" id="pol0" style="width: clamp(110px, 19vw, 165px)">
-        <div class="polaroid-ph">Photo 1</div>
+        <img src="pic1.jpeg" alt="you & me" />
       </div>
       <div class="polaroid" id="pol1" style="width: clamp(110px, 19vw, 165px)">
-        <div class="polaroid-ph">Photo 2</div>
+        <img src="pic2.jpeg" alt="every adventure with you" />
       </div>
       <div class="polaroid" id="pol2" style="width: clamp(110px, 19vw, 165px)">
-        <div class="polaroid-ph">Photo 3</div>
+        <img src="pic3.jpeg" alt="that laugh" />
       </div>
       <div class="polaroid" id="pol3" style="width: clamp(110px, 19vw, 165px)">
-        <div class="polaroid-ph">Photo 4</div>
+        <img src="pic4.jpeg" alt="strongest girl i know" />
       </div>
       <div class="polaroid" id="pol4" style="width: clamp(110px, 19vw, 165px)">
-        <div class="polaroid-ph">Photo 5</div>
+        <img src="pic5.jpeg" alt="cool as ever" />
       </div>
       <div class="polaroid" id="pol5" style="width: clamp(110px, 19vw, 165px)">
-        <div class="polaroid-ph">Photo 6</div>
+        <img src="pic6.jpeg" alt="the chef" />
       </div>
 
       <div class="neon-bday" id="neonBday">happy<br />birthday</div>
@@ -1431,11 +1432,17 @@
         const slots =
           window.innerWidth < 640 ? SLOTS_MOBILE : SLOTS;
 
+        // shuffle which photo lands in which slot, with a little position
+        // jitter so the scatter feels different every visit
+        const order = [...slots.keys()].sort(() => Math.random() - 0.5);
+
         slots.forEach((slot, i) => {
-          const el = document.getElementById("pol" + i);
-          el.style.top = slot.top + "%";
-          el.style.left = slot.left + "%";
-          el.style.setProperty("--r", `rotate(${slot.rot}deg)`);
+          const el = document.getElementById("pol" + order[i]);
+          const jitter = (range) => (Math.random() * range - range / 2).toFixed(1);
+          el.style.top = (+slot.top + +jitter(4)) + "%";
+          el.style.left = (+slot.left + +jitter(4)) + "%";
+          const rot = slot.rot + +jitter(3);
+          el.style.setProperty("--r", `rotate(${rot}deg)`);
 
           setTimeout(() => {
             el.classList.add("glide-" + slot.dir);
